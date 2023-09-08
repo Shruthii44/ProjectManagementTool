@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Social Media with Task Assignment</title>
+    <style>
+        /* Add your CSS styles here */
+        /* This is a very basic example; you should style your app properly */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        #content {
+            margin: 20px;
+        }
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Welcome to My Social Media Platform</h1>
+    </div>
+
+    <div id="content">
+        <h2>User Profile</h2>
+        <p>Username: barath</p>
+
+        <h2>Post Feed</h2>
+        <div class="post">
+            <p><strong>Ram</strong>: Hello!! Raj</p>
+            <button onclick="assignTask(1)">Assign Task</button>
+        </div>
+        <div class="post">
+            <p><strong>Raj</strong>: Hii, how are you Ram</p>
+            <button onclick="assignTask(2)">Assign Task</button>
+        </div>
+
+        <h2>Task List</h2>
+        <ul id="task-list">
+            <!-- Task items will be added here dynamically -->
+        </ul>
+    </div>
+
+    <script>
+        const tasks = [];
+
+        function assignTask(postId) {
+            // Simulate assigning a task
+            const post = document.querySelector(`.post button[data-post-id="${postId}"]`).parentNode;
+            const postContent = post.querySelector('p').textContent;
+            const task = {
+                id: tasks.length + 1,
+                content: postContent,
+                completed: false
+            };
+            tasks.push(task);
+            updateTaskList();
+        }
+
+        function updateTaskList() {
+            const taskList = document.getElementById("task-list");
+            taskList.innerHTML = ""; // Clear the task list
+
+            for (const task of tasks) {
+                const taskItem = document.createElement("li");
+                taskItem.innerHTML = `
+                    <input type="checkbox" ${task.completed ? "checked" : ""}>
+                    <label>${task.content}</label>
+                `;
+                taskList.appendChild(taskItem);
+            }
+        }
+    </script>
+</body>
+</html>
